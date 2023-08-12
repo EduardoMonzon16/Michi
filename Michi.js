@@ -1,41 +1,41 @@
 const cells = document.querySelectorAll('.cell');
-        let currentPlayer = 'X';
-        let gameEnded = false;
+        let TurnoJugador = 'X';
+        let FinJuego = false;
 
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
-                if (!cell.textContent && !gameEnded) {
-                    cell.textContent = currentPlayer;
-                    checkWinner();
-                    currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+                if (!cell.textContent && !FinJuego) {
+                    cell.textContent = TurnoJugador;
+                    VGanador();
+                    TurnoJugador = (TurnoJugador === 'X') ? 'O' : 'X';
                 }
             });
         });
 
-        function checkWinner() {
+        function VGanador() {
             const lines = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Horizontal
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Vertical
-                [0, 4, 8], [2, 4, 6]             // Diagonal
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],  
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],  
+                [0, 4, 8], [2, 4, 6]             
             ];
 
             for (const line of lines) {
                 const [a, b, c] = line;
                 if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
-                    gameEnded = true;
+                    FinJuego = true;
                     cells[a].style.backgroundColor = '#aaffaa';
                     cells[b].style.backgroundColor = '#aaffaa';
                     cells[c].style.backgroundColor = '#aaffaa';
-                    document.getElementById('winner').textContent = `¡${currentPlayer} ganó!`;
-                    document.getElementById('winner').style.display = 'block';
+                    document.getElementById('ganador').textContent = `¡Jugador ${TurnoJugador} ganó!`;
+                    document.getElementById('ganador').style.display = 'block';
                     return;
                 }
             }
 
-            const isTie = [...cells].every(cell => cell.textContent);
-            if (isTie) {
-                gameEnded = true;
-                document.getElementById('winner').textContent = '¡Empate!';
-                document.getElementById('winner').style.display = 'block';
+            const Empate = [...cells].every(cell => cell.textContent);
+            if (Empate) {
+                FinJuego = true;
+                document.getElementById('ganador').textContent = '¡Empate!';
+                document.getElementById('ganador').style.display = 'block';
             }
         }
