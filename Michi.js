@@ -1,4 +1,7 @@
 const cells = document.querySelectorAll('.cell');
+const Reiniciar = document.getElementById('reiniciar');
+const Mensaje = document.getElementById('mensaje');
+
         let TurnoJugador = 'X';
         let FinJuego = false;
 
@@ -26,8 +29,9 @@ const cells = document.querySelectorAll('.cell');
                     cells[a].style.backgroundColor = '#aaffaa';
                     cells[b].style.backgroundColor = '#aaffaa';
                     cells[c].style.backgroundColor = '#aaffaa';
-                    document.getElementById('ganador').textContent = `¡Jugador ${TurnoJugador} ganó!`;
-                    document.getElementById('ganador').style.display = 'block';
+
+                    document.getElementById('mensaje').textContent = `¡Jugador ${TurnoJugador} ganó!`;
+                    document.getElementById('mensaje').style.display = 'block';
                     return;
                 }
             }
@@ -35,7 +39,19 @@ const cells = document.querySelectorAll('.cell');
             const Empate = [...cells].every(cell => cell.textContent);
             if (Empate) {
                 FinJuego = true;
-                document.getElementById('ganador').textContent = '¡Empate!';
-                document.getElementById('ganador').style.display = 'block';
+                document.getElementById('mensaje').textContent = '¡Empate!';
+                document.getElementById('mensaje').style.display = 'block';
             }
         }
+
+        Reiniciar.addEventListener('click', () => {
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.style.backgroundColor = '#eee';
+            });
+            Mensaje.textContent = '';
+            Mensaje.style.display = 'none';
+            FinJuego = false;
+            TurnoJugador = 'X';
+        });
+ 
